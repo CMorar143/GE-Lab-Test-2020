@@ -30,8 +30,9 @@ public class TrafficLight : MonoBehaviour
 	{
 		while (true)
 		{
-			yield return new WaitForSeconds(time);
-			
+			yield return new WaitForSeconds(GetTimer());
+			colourCounter = (colourCounter + 1) % trafficColours.Count;
+			gameObject.GetComponent<Renderer>().material = trafficColours[colourCounter];
 		}
 	}
 

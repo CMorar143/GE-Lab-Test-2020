@@ -430,6 +430,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numTrafficLights: 10
   radius: 10
+  trafficColours:
+  - {fileID: 2100000, guid: d7da03e6ade915147896d1d6b87d6134, type: 2}
+  - {fileID: 2100000, guid: c7ea623007e24ab4fa81c7a1e3694852, type: 2}
+  - {fileID: 2100000, guid: 538db9fb380e61f4b98434f8eafaf98e, type: 2}
 --- !u!4 &1640842586
 Transform:
   m_ObjectHideFlags: 0

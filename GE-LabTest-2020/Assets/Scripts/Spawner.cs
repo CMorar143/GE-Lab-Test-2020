@@ -9,12 +9,6 @@ public class Spawner : MonoBehaviour
 	private List<Vector3> trafficCones = new List<Vector3>();
 	public List<Material> trafficColours = new List<Material>();
 
-	private void Start()
-	{
-		// Create Traffic Cones
-		CreateTrafficCones();
-	}
-
 	// Update is called once per frame
 	void Update()
     {
@@ -53,5 +47,8 @@ public class Spawner : MonoBehaviour
 			pos = transform.TransformPoint(pos);
 			trafficCones.Add(pos);
 		}
+
+		// Create Traffic Cones
+		CreateTrafficCones();
 	}
 }

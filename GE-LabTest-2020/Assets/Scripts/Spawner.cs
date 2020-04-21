@@ -27,11 +27,15 @@ public class Spawner : MonoBehaviour
 	{
 		foreach (Vector3 pos in trafficCones)
 		{
+			int index = Random.Range(0, trafficColours.Count);
 			GameObject trafficCone = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-			trafficCone.AddComponent<TrafficLight>();
 			trafficCone.transform.position = pos;
-			trafficCone.GetComponent<Renderer>().material = trafficColours[Random.Range(0, trafficColours.Count)];
+			trafficCone.GetComponent<Renderer>().material = trafficColours[index];
 			trafficCone.transform.parent = this.transform;
+
+			// Set colour array and colour counter
+			trafficCone.AddComponent<TrafficLight>().trafficColours = trafficColours;
+			trafficCone.GetComponent<TrafficLight>().colourCounter = index;
 		}
 	}
 

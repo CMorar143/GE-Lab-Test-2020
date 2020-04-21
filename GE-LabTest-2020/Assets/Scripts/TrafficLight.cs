@@ -37,7 +37,7 @@ public class TrafficLight : MonoBehaviour
 
 	private void OnEnable()
 	{
-		StartCoroutine((ChangeColour(waitTime));
+		StartCoroutine(ChangeColour(waitTime));
 	}
 
 	// Start is called before the first frame update

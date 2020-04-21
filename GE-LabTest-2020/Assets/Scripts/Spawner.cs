@@ -16,38 +16,36 @@ public class Spawner : MonoBehaviour
         
     }
 
-	public void OnDrawGizmos()
+	private void SetAttributes(GameObject trafficCone)
 	{
-		foreach (Vector3 pos in trafficCones)
+		int index = Random.Range(0, trafficColours.Count);
+
+		trafficCone.GetComponent<Renderer>().material = trafficColours[index];
+		trafficCone.transform.parent = this.transform;
+
+		// Set the tag if they're green
+		if (index == 0)
 		{
-			Gizmos.DrawWireSphere(pos, 2);
+			trafficCone.tag = "GreenLight";
 		}
+
+		// For detecting collision
+		trafficCone.AddComponent<Rigidbody>().useGravity = false;
+		trafficCone.GetComponent<CapsuleCollider>().isTrigger = true;
+
+		// Set colour array and colour counter within TrafficLight script
+		trafficCone.AddComponent<TrafficLight>().trafficColours = trafficColours;
+		trafficCone.GetComponent<TrafficLight>().colourCounter = index;
 	}
 
 	private void CreateTrafficCones()
 	{
 		foreach (Vector3 pos in trafficCones)
 		{
-			int index = Random.Range(0, trafficColours.Count);
 			GameObject trafficCone = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 			trafficCone.transform.position = pos;
 
-			trafficCone.GetComponent<Renderer>().material = trafficColours[index];
-			trafficCone.transform.parent = this.transform;
-
-			// Set the tag if they're green
-			if (index == 0)
-			{
-				trafficCone.tag = "GreenLight";
-			}
-
-			// For detecting collision
-			trafficCone.AddComponent<Rigidbody>().useGravity = false;
-			trafficCone.GetComponent<CapsuleCollider>().isTrigger = true;
-
-			// Set colour array and colour counter
-			trafficCone.AddComponent<TrafficLight>().trafficColours = trafficColours;
-			trafficCone.GetComponent<TrafficLight>().colourCounter = index;
+			SetAttributes(trafficCone);
 		}
 	}
 

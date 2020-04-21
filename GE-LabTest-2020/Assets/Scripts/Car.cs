@@ -38,7 +38,7 @@ public class Car : MonoBehaviour
 	{
 		Vector3 force = Vector3.zero;
 
-		// Find target
+		// If the target changes
 		if (target.tag != "GreenLight")
 		{
 			SetTarget();
@@ -51,6 +51,7 @@ public class Car : MonoBehaviour
 
 	private void SetTarget()
 	{
+		// Array of all green lights
 		greenCones = GameObject.FindGameObjectsWithTag("GreenLight");
 
 		if (greenCones.Length != 0)
@@ -73,6 +74,8 @@ public class Car : MonoBehaviour
 	{
 		if (other.gameObject.tag == "GreenLight")
 		{
+			// Remove the tag and find a new green traffic light
+			// We remove the tag to prevent the SetTarget from possibly choosing the same traffic light
 			other.gameObject.tag = "Untagged";
 			SetTarget();
 		}

@@ -8,6 +8,7 @@ public class Spawner : MonoBehaviour
 	public float radius = 10;
 	private List<Vector3> trafficCones = new List<Vector3>();
 	public List<Material> trafficColours = new List<Material>();
+	
 
 	// Update is called once per frame
 	void Update()
@@ -23,6 +24,11 @@ public class Spawner : MonoBehaviour
 		}
 	}
 
+	private void SetWaypoint()
+	{
+
+	}
+
 	private void CreateTrafficCones()
 	{
 		foreach (Vector3 pos in trafficCones)
@@ -30,6 +36,7 @@ public class Spawner : MonoBehaviour
 			int index = Random.Range(0, trafficColours.Count);
 			GameObject trafficCone = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 			trafficCone.transform.position = pos;
+
 			trafficCone.GetComponent<Renderer>().material = trafficColours[index];
 			trafficCone.transform.parent = this.transform;
 

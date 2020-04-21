@@ -15,8 +15,10 @@ public class Car : MonoBehaviour
 	public float maxSpeed = 5;
 	public float maxForce = 10;
 	public float speed = 0;
-	
-	public Vector3 target = new Vector3(10,10,10);
+
+	private Transform target;
+
+	private List<GameObject> greenCones = new List<GameObject>();
 
 	Vector3 Seek(Vector3 target)
 	{
@@ -32,7 +34,7 @@ public class Car : MonoBehaviour
 		Vector3 force = Vector3.zero;
 		if (target != null)
 		{
-			force += Seek(target);
+			force += Seek(target.position);
 		}
 		return force;
 	}
@@ -56,7 +58,6 @@ public class Car : MonoBehaviour
 		{
 			Vector3 tempUp = Vector3.Lerp(transform.up, Vector3.up + (acceleration * banking), Time.deltaTime * 3.0f);
 			transform.LookAt(transform.position + velocity, tempUp);
-			//transform.forward = velocity;
 			velocity -= (damping * velocity * Time.deltaTime);
 		}
 	}

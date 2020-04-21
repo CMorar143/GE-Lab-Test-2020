@@ -33,12 +33,23 @@ public class TrafficLight : MonoBehaviour
 			yield return new WaitForSeconds(GetTimer());
 			colourCounter = (colourCounter + 1) % trafficColours.Count;
 			gameObject.GetComponent<Renderer>().material = trafficColours[colourCounter];
+
+			// Set tag for green cones
+			if (colourCounter == 0)
+			{
+				gameObject.tag = "GreenLight";
+			}
+
+			else
+			{
+				gameObject.tag = "Untagged";
+			}
 		}
 	}
 
 	private void OnEnable()
 	{
-		StartCoroutine(ChangeColour(waitTime));
+		StartCoroutine(ChangeColour(GetTimer()));
 	}
 
 	// Start is called before the first frame update
@@ -50,6 +61,5 @@ public class TrafficLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
+            }
 }

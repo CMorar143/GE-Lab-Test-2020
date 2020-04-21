@@ -6,7 +6,8 @@ public class Spawner : MonoBehaviour
 {
 	public int numTrafficLights = 10;
 	public float radius = 10;
-	private List<Vector3> TrafficCones = new List<Vector3>();
+	private List<Vector3> trafficCones = new List<Vector3>();
+	private List<Material> trafficColours = new List<Material>();
 
 	// Update is called once per frame
 	void Update()
@@ -16,7 +17,7 @@ public class Spawner : MonoBehaviour
 
 	public void OnDrawGizmos()
 	{
-		foreach (Vector3 pos in TrafficCones)
+		foreach (Vector3 pos in trafficCones)
 		{
 			Gizmos.DrawWireSphere(pos, 2);
 		}
@@ -24,9 +25,10 @@ public class Spawner : MonoBehaviour
 
 	private void CreateTrafficCones()
 	{
-		foreach (Vector3 pos in TrafficCones)
+		foreach (Vector3 pos in trafficCones)
 		{
 			GameObject trafficCone = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+			trafficCone.AddComponent<TrafficLight>();
 			trafficCone.transform.position = pos;
 			trafficCone.transform.parent = this.transform;
 		}
@@ -35,15 +37,19 @@ public class Spawner : MonoBehaviour
 	// Use this for initialization
 	void Awake()
 	{
+		// Get the positions
 		float thetaInc = (Mathf.PI * 2) / (float)numTrafficLights;
 		for (int i = 0; i < numTrafficLights; i++)
 		{
 			float theta = i * thetaInc;
 			Vector3 pos = new Vector3(Mathf.Sin(theta) * radius, 0, Mathf.Cos(theta) * radius);
 			pos = transform.TransformPoint(pos);
-			TrafficCones.Add(pos);
+			trafficCones.Add(pos);
 		}
 
+		// Get Colours
+
+		// Create Traffic Cones
 		CreateTrafficCones();
 	}
 }

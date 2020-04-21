@@ -59,6 +59,16 @@ public class Car : MonoBehaviour
 		}
 	}
 
+	public void OnDrawGizmos()
+	{
+		Gizmos.color = Color.blue;
+
+		if (target != null)
+		{
+			Gizmos.DrawLine(transform.position, target.position);
+		}
+	}
+
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.tag == "GreenLight")

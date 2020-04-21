@@ -32,9 +32,9 @@ public class Car : MonoBehaviour
 	public Vector3 CalculateForce()
 	{
 		Vector3 force = Vector3.zero;
-
+		
 		// Find target
-		if (target == null || target.tag != "GreenLight")
+		if (target.tag != "GreenLight")
 		{
 			SetTarget();
 		}
@@ -54,11 +54,20 @@ public class Car : MonoBehaviour
 		}
 	}
 
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "GreenLight")
+		{
+			other.gameObject.tag = "Untagged";
+			SetTarget();
+		}
+	}
+
 	// Start is called before the first frame update
 	void Start()
     {
-        
-    }
+		SetTarget();
+	}
 
     // Update is called once per frame
     void Update()

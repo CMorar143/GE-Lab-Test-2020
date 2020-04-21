@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour
 	{
 		foreach (Vector3 pos in trafficCones)
 		{
-			int index = Random.Range(0, trafficColours.Count);
+			int index = Random.Range(1, trafficColours.Count);
 			GameObject trafficCone = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 			trafficCone.transform.position = pos;
 
@@ -40,6 +40,10 @@ public class Spawner : MonoBehaviour
 			{
 				trafficCone.tag = "GreenLight";
 			}
+
+			// For detecting collision
+			trafficCone.AddComponent<Rigidbody>().useGravity = false;
+			trafficCone.GetComponent<CapsuleCollider>().isTrigger = true;
 
 			// Set colour array and colour counter
 			trafficCone.AddComponent<TrafficLight>().trafficColours = trafficColours;

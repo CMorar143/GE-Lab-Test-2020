@@ -6,15 +6,9 @@ public class Spawner : MonoBehaviour
 {
 	public int numTrafficLights = 10;
 	public float radius = 10;
+
 	private List<Vector3> trafficCones = new List<Vector3>();
 	public List<Material> trafficColours = new List<Material>();
-	
-
-	// Update is called once per frame
-	void Update()
-    {
-        
-    }
 
 	private void SetAttributes(GameObject trafficCone)
 	{

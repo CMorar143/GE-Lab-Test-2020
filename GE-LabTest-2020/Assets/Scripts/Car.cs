@@ -1,5 +1,4 @@
-﻿//using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -75,7 +74,7 @@ public class Car : MonoBehaviour
 		if (other.gameObject.tag == "GreenLight")
 		{
 			// Remove the tag and find a new green traffic light
-			// We remove the tag to prevent the SetTarget from possibly choosing the same traffic light
+			// We remove the tag to prevent the SetTarget() from possibly choosing the same traffic light
 			other.gameObject.tag = "Untagged";
 			SetTarget();
 		}

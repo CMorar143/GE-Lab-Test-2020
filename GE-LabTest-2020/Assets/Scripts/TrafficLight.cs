@@ -8,7 +8,7 @@ public class TrafficLight : MonoBehaviour
 	public int colourCounter;
 	private float waitTime;
 
-
+	// How long will the current light/colour last
 	private float GetTimer()
 	{
 		// If the traffic light is yellow
@@ -31,6 +31,8 @@ public class TrafficLight : MonoBehaviour
 		while (true)
 		{
 			yield return new WaitForSeconds(GetTimer());
+
+			// Cycle through the colours
 			colourCounter = (colourCounter + 1) % trafficColours.Count;
 			gameObject.GetComponent<Renderer>().material = trafficColours[colourCounter];
 
@@ -40,6 +42,7 @@ public class TrafficLight : MonoBehaviour
 				gameObject.tag = "GreenLight";
 			}
 
+			// Set tag for yellow and red cones
 			else
 			{
 				gameObject.tag = "Untagged";
@@ -50,17 +53,5 @@ public class TrafficLight : MonoBehaviour
 	private void OnEnable()
 	{
 		StartCoroutine(ChangeColour(GetTimer()));
-	}
-
-	// Start is called before the first frame update
-	void Start()
-    {
-		
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
 	}
 }

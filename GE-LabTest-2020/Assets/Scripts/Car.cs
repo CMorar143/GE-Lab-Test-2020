@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,9 +17,9 @@ public class Car : MonoBehaviour
 	public float maxForce = 10;
 	public float speed = 0;
 
-	private Transform target;
+	private Transform target = null;
 
-	private List<GameObject> greenCones = new List<GameObject>();
+	public GameObject[] greenCones;
 
 	Vector3 Seek(Vector3 target)
 	{
@@ -26,17 +27,31 @@ public class Car : MonoBehaviour
 		Vector3 desired = toTarget.normalized * maxSpeed;
 
 		return desired - velocity;
-		//return toTarget - velocity;
 	}
 
 	public Vector3 CalculateForce()
 	{
 		Vector3 force = Vector3.zero;
-		if (target != null)
+
+		// Find target
+		if (target == null || target.tag != "GreenLight")
 		{
-			force += Seek(target.position);
+			SetTarget();
 		}
+
+		force += Seek(target.position);
+		
 		return force;
+	}
+
+	private void SetTarget()
+	{
+		greenCones = GameObject.FindGameObjectsWithTag("GreenLight");
+
+		if (greenCones.Length != 0)
+		{
+			target = greenCones[Random.Range(0, greenCones.Length)].transform;
+		}
 	}
 
 	// Start is called before the first frame update

@@ -24,11 +24,6 @@ public class Spawner : MonoBehaviour
 		}
 	}
 
-	private void SetWaypoint()
-	{
-
-	}
-
 	private void CreateTrafficCones()
 	{
 		foreach (Vector3 pos in trafficCones)
@@ -39,6 +34,12 @@ public class Spawner : MonoBehaviour
 
 			trafficCone.GetComponent<Renderer>().material = trafficColours[index];
 			trafficCone.transform.parent = this.transform;
+
+			// Set the tag if they're green
+			if (index == 0)
+			{
+				trafficCone.tag = "GreenLight";
+			}
 
 			// Set colour array and colour counter
 			trafficCone.AddComponent<TrafficLight>().trafficColours = trafficColours;

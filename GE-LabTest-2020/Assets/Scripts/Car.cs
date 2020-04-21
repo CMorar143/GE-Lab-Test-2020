@@ -16,15 +16,20 @@ public class Car : MonoBehaviour
 	public float maxSpeed = 5;
 	public float maxForce = 10;
 	public float speed = 0;
+	public float slowingDistance = 5;
 
 	private Transform target = null;
 
 	public GameObject[] greenCones;
 
-	Vector3 Seek(Vector3 target)
+	Vector3 Arrive(Vector3 target)
 	{
 		Vector3 toTarget = target - transform.position;
-		Vector3 desired = toTarget.normalized * maxSpeed;
+		float dist = toTarget.magnitude;
+
+		float ramped = (dist / slowingDistance) * maxSpeed;
+		float clamped = Mathf.Min(ramped, maxSpeed);
+		Vector3 desired = (toTarget / dist) * clamped;
 
 		return desired - velocity;
 	}
@@ -32,15 +37,15 @@ public class Car : MonoBehaviour
 	public Vector3 CalculateForce()
 	{
 		Vector3 force = Vector3.zero;
-		
+
 		// Find target
 		if (target.tag != "GreenLight")
 		{
 			SetTarget();
 		}
 
-		force += Seek(target.position);
-		
+		force += Arrive(target.position);
+
 		return force;
 	}
 
